@@ -1,5 +1,21 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+// Bogie class
+class Bogie {
+    String name;
+    int capacity;
+
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
 
 public class train_app {
 
@@ -8,22 +24,25 @@ public class train_app {
         // Welcome message
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashMap for bogie-capacity mapping
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // Create list of bogies (same as UC7)
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Second Sitting", 80));
 
-        // Add bogies with capacity
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 56);
-        bogieCapacity.put("First Class", 24);
+        // Display original list
+        System.out.println("All Bogies: " + bogies);
 
-        // Display bogie capacities
-        System.out.println("Bogie Capacity Details:");
+        // Filter bogies with capacity > 60 using Stream
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue() + " seats");
-        }
+        // Display filtered list
+        System.out.println("Filtered Bogies (Capacity > 60): " + filteredBogies);
 
         // Program continues
-        System.out.println("Capacity mapping completed successfully.");
+        System.out.println("Filtering completed using Stream API.");
     }
 }
