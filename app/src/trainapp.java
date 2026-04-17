@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 // Bogie class
 class Bogie {
@@ -29,24 +27,21 @@ public class trainapp {
         List<Bogie> bogies = new ArrayList<>();
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("Sleeper", 70));
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("Second Sitting", 80));
 
-        // Display original list
+        // Display bogies
         System.out.println("All Bogies: " + bogies);
 
-        // Group bogies by type
-        Map<String, List<Bogie>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(b -> b.name));
+        // Calculate total capacity using Stream
+        int totalCapacity = bogies.stream()
+                .map(b -> b.capacity)      // extract capacity
+                .reduce(0, Integer::sum);  // sum all values
 
-        // Display grouped result
-        System.out.println("Grouped Bogies:");
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        // Display total
+        System.out.println("Total Seating Capacity: " + totalCapacity);
 
         // Program continues
-        System.out.println("Bogies grouped successfully using Stream API.");
+        System.out.println("Aggregation completed successfully.");
     }
 }
