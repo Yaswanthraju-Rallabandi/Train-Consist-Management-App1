@@ -1,68 +1,42 @@
 import java.util.*;
 
-// Passenger Bogie class
-class PassengerBogie {
-    String name;
-    int capacity;
-
-    PassengerBogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    public String toString() {
-        return name + " (" + capacity + ")";
-    }
-}
-
 public class trainapp {
 
-    // Bubble Sort (Manual)
-    static void bubbleSort(List<PassengerBogie> list) {
+    // Linear Search Method
+    static boolean linearSearch(String[] bogies, String key) {
 
-        int n = list.size();
-        int swaps = 0;
+        for (int i = 0; i < bogies.length; i++) {
 
-        for (int i = 0; i < n - 1; i++) {
-            boolean swapped = false;
-
-            for (int j = 0; j < n - i - 1; j++) {
-
-                if (list.get(j).capacity > list.get(j + 1).capacity) {
-
-                    // Swap manually
-                    PassengerBogie temp = list.get(j);
-                    list.set(j, list.get(j + 1));
-                    list.set(j + 1, temp);
-
-                    swaps++;
-                    swapped = true;
-                }
+            // Compare using equals()
+            if (bogies[i].equals(key)) {
+                System.out.println("Bogie found at position: " + i);
+                return true; // early stop
             }
-
-            // Optimization (early stop)
-            if (!swapped) break;
         }
 
-        System.out.println("Sorted Bogies (ASC): " + list);
-        System.out.println("Total Swaps: " + swaps);
+        return false; // not found
     }
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create passenger bogies
-        List<PassengerBogie> list = new ArrayList<>();
-        list.add(new PassengerBogie("Sleeper", 72));
-        list.add(new PassengerBogie("AC Chair", 56));
-        list.add(new PassengerBogie("First Class", 24));
+        // Array of bogie IDs (unsorted)
+        String[] bogies = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        System.out.println("Before Sorting: " + list);
+        // Search key
+        String searchKey = "BG309";
 
-        // Apply Bubble Sort
-        bubbleSort(list);
+        System.out.println("Searching for: " + searchKey);
 
-        System.out.println("Sorting completed.");
+        boolean found = linearSearch(bogies, searchKey);
+
+        if (found) {
+            System.out.println("Bogie exists in the train.");
+        } else {
+            System.out.println("Bogie NOT found.");
+        }
+
+        System.out.println("Search operation completed.");
     }
 }
